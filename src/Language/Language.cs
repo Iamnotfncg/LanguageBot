@@ -3,7 +3,6 @@ using System.ComponentModel;
 
 namespace LanguageBot.Language
 {
-
     [Flags]
     public enum Languages
     {
@@ -11,6 +10,7 @@ namespace LanguageBot.Language
         [Description("English")]    English     = 1 << 1,
         [Description("Ukrainian")]  Ukrainian   = 1 << 2,
         [Description("German")]     German      = 1 << 3,
+        None
     }
 
     public static class LanguageDispatcher

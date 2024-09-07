@@ -2,50 +2,37 @@
 using Telegram.Bot.Types;
 using LanguageBot.UI;
 using LanguageBot.Language;
-using LanguageBot.Model.User;
+using LanguageBot.Data;
 
 namespace LanguageBot.Handlers
 {
     public static class MessageHandler
     {
-        public static async Task HandleMessageAsync(ITelegramBotClient botClient, Message message)
-        {
-            var chatId = message.Chat.Id;
-
-            // Send language selection keyboard
-            await botClient.SendTextMessageAsync(
-                chatId: chatId,
-                text: "Please choose your language(s):",
-                replyMarkup: Buttons.LanguageKeyboard()
-            );
-        }
-
-        public static async Task HandleMessageAsync(ITelegramBotClient botClient, Message message)
+        public static async Task HandleMessageAsync(ITelegramBotClient botClient, Message message, BotDbContext dbContext)
         {
             var chatId = message.Chat.Id;
             var text = message.Text;
 
             if (text == "/start")
             {
-                // Initialize user if not already present
-                if (!Users.ContainsKey(chatId))
+                var user = await dbContext.Users.FindAsync(chatId);
+                if (user == null)
                 {
-                    Users[chatId] = new User(chatId);
+                    user = new LanguageBot.Data.User
+                    {
+                        UserId = chatId,
+                        UserProgress = new Progress()
+                    };
+                    dbContext.Users.Add(user);
+                    await dbContext.SaveChangesAsync();
                 }
 
-                // Send language selection keyboard
                 await botClient.SendTextMessageAsync(
                     chatId: chatId,
-                    text: "Please choose your language(s):",
-                    replyMarkup: Buttons.LanguageKeyboard()
+                    text: "Welcome! Choose an option:",
+                    replyMarkup: Buttons.MainMenuKeyboard()
                 );
             }
-            else if (text == "/mylanguages")
-            {
-                await SendSelectedLanguagesAsync(botClient, chatId);
-            }
         }
-
-        
     }
 }
