@@ -6,10 +6,10 @@ namespace LanguageBot.Language
     [Flags]
     public enum Languages
     {
-        [Description("Spanish")]    Spanish     = 1 << 0,
-        [Description("English")]    English     = 1 << 1,
-        [Description("Ukrainian")]  Ukrainian   = 1 << 2,
-        [Description("German")]     German      = 1 << 3,
+        [Description("Spanish es")]    Spanish     = 1 << 1,
+        [Description("English en")]    English     = 1 << 2,
+        [Description("Ukrainian ua")]  Ukrainian   = 1 << 3,
+        [Description("German de")]     German      = 1 << 4,
         None
     }
 

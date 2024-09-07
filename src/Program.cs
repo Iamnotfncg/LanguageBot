@@ -8,12 +8,12 @@ class Program
     static async Task Main()
     {
         var dbContextOptions = new DbContextOptionsBuilder<BotDbContext>()
-            .UseNpgsql("bebebe")
+            .UseNpgsql("bebebebebebebebebebebebebebe")
             .Options;
 
         using var dbContext = new BotDbContext(dbContextOptions);
 
-        var botClient = new TelegramBotClient("bababa");
+        var botClient = new TelegramBotClient("bububububuububububu);
         var botService = new BotService(botClient, dbContext);
 
         await botService.StartAsync();

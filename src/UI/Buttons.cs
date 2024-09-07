@@ -35,12 +35,7 @@ namespace LanguageBot.UI
             var keyboardButtons = new List<InlineKeyboardButton[]>();
 
             foreach (Languages language in Enum.GetValues(typeof(Languages)))
-            {
-                keyboardButtons.Add(new[]
-                {
-                    InlineKeyboardButton.WithCallbackData(language.GetDescription(), $"lang_{language}")
-                });
-            }
+            keyboardButtons.Add(new[] { InlineKeyboardButton.WithCallbackData(language.GetDescription(), $"lang_{language}") });
 
             keyboardButtons.Add(new[]
             {
