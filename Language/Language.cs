@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LanguageBot.Language
+﻿namespace LanguageBot.Language
 {
-    internal class Language
+    [Flags]
+    internal enum Languages
     {
+        Spanish = 1 << 0,
+        English = 1 << 1,
+        Ukrainian = 1 << 2,
+        German = 1 << 3,
+    }
+    internal static class LanguageDispatcher
+    {
+        internal static bool IsLanguageType(Languages language, Languages selectedByUser) => (language & selectedByUser) == language;
     }
 }

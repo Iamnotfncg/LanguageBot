@@ -1,12 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Telegram.Bot.Types.ReplyMarkups;
 
-namespace LanguageBot.UI
+public static class Buttons
 {
-    internal class Buttons
+    // var LanguageButtons = ...
+
+    public static InlineKeyboardMarkup LanguageKeyboard()
     {
+        var keyboardButtons = new List<InlineKeyboardButton[]>();
+
+        // Create rows of buttons
+        foreach (var language in LanguageButtons)
+        {
+            keyboardButtons.Add(new[]
+            {
+                    InlineKeyboardButton.WithCallbackData(language.Key, language.Value)
+                });
+        }
+
+        // Add a "Done" button
+        keyboardButtons.Add(new[]
+        {
+                InlineKeyboardButton.WithCallbackData("Done", "done")
+            });
+
+        return new InlineKeyboardMarkup(keyboardButtons);
     }
 }
