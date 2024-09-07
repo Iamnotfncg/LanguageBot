@@ -3,6 +3,8 @@ using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using LanguageBot.Handlers;
+using LanguageBot.Language;
+using LanguageBot.Model.User;
 
 namespace LanguageBot.Services
 {
@@ -46,6 +48,34 @@ namespace LanguageBot.Services
         {
             Console.WriteLine(exception.ToString());
             return Task.CompletedTask;
+        }
+
+        private static async Task SendSelectedLanguagesAsync(ITelegramBotClient botClient, long chatId)
+        {
+            if (Users.TryGetValue(chatId, out var user))
+            {
+                var selectedLanguages = user.UserProgress.SelectedLanguages;
+
+                if (selectedLanguages == Languages.None)
+                {
+                    await botClient.SendTextMessageAsync(chatId, "You have not selected any languages.");
+                }
+                else
+                {
+                    var languagesList = selectedLanguages
+                        .ToString()
+                        .Replace(", ", "\n"); // Formatting each language on a new line
+
+                    await botClient.SendTextMessageAsync(
+                        chatId: chatId,
+                        text: $"You have selected the following language(s):\n{languagesList}"
+                    );
+                }
+            }
+            else
+            {
+                await botClient.SendTextMessageAsync(chatId, "User data not found. Please start by choosing your languages.");
+            }
         }
     }
 }

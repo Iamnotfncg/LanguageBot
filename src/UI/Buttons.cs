@@ -9,7 +9,6 @@ namespace LanguageBot.UI
         {
             var keyboardButtons = new List<InlineKeyboardButton[]>();
 
-            // Create rows of buttons using the enum
             foreach (Languages language in Enum.GetValues(typeof(Languages)))
             {
                 keyboardButtons.Add(new[]
@@ -18,7 +17,6 @@ namespace LanguageBot.UI
                 });
             }
 
-            // Add a "Done" button
             keyboardButtons.Add(new[]
             {
                 InlineKeyboardButton.WithCallbackData("Done", "done")

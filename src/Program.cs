@@ -5,7 +5,7 @@ class Program
 {
     static async Task Main()
     {
-        var botClient = new TelegramBotClient("YOUR_BOT_TOKEN");
+        var botClient = new TelegramBotClient("");
         var botService = new BotService(botClient);
 
         await botService.StartAsync();
